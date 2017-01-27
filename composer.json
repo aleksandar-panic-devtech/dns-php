@@ -1,0 +1,27 @@
+{
+    "name": "runz0rd/dns-php",
+    "description": "Wrapper for Net_DNS2",
+    "type": "library",
+    "authors": [
+        {
+            "name": "runz0rd",
+            "email": "pejan123@gmail.com"
+        }
+    ],
+    "require": {
+        "pear/net_dns2": "1.4.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
+    }
+}
