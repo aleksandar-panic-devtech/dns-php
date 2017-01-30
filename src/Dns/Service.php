@@ -104,15 +104,17 @@ class Service {
 	 * @param string $domain
 	 * @param string $serial
 	 * @param array $nameservers
-	 * @throws \Exception
+	 * @return boolean
 	 * @throws \Net_DNS2_Exception
 	 */
-	public function checkDomainSerial($domain, $serial, array $nameservers = null) {
+	public function domainSerialsMatch($domain, $serial, array $nameservers = null) {
+		$result = false;
 		/** @var \Net_DNS2_RR_SOA[] $records */
 		$soaRecords = $this->repository->getRecord($domain, 'SOA', $nameservers);
-		if(isset($soaRecords[0]->serial) && $soaRecords[0]->serial != $serial) {
-			throw new \Exception('Local SOA serial number for domain ' . $domain . ' does not match the given serial.');
+		if(isset($soaRecords[0]->serial) && $soaRecords[0]->serial == $serial) {
+			$result = true;
 		}
+		return $result;
 	}
 
 	/**
