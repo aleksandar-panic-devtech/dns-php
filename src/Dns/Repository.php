@@ -35,7 +35,13 @@ class Repository {
 			$nameservers = $this->defaultNameservers;
 		}
 		try {
-			$resolver = new \Net_DNS2_Resolver(array('nameservers' => $nameservers));
+			/*
+			* Unfortunately Net_DNS2 uses the "domain" from resolv.conf and appends it to
+			* all queries for domains with a dot. Hence, we manually have to set the domain
+			* option to an empty name. Note, this must be done after setting the nameserver
+			* option.
+			*/
+			$resolver = new \Net_DNS2_Resolver(array('nameservers' => $nameservers, 'domain' => ''));
 			/** @var \Net_DNS2_Packet $result */
 			$result = $resolver->query($domain, $type);
 		}
